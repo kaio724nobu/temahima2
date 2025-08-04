@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>てまひま | 手書き絵葉書代筆</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fdfaf6; /* 暖かみのあるクリーム色 */
+            --text-color: #5d5d5d; /* 柔らかいブラウン系のテキスト色 */
+            --primary-color: #d9a6a0; /* 優雅なローズピンク */
+            --accent-color: #e5b8b0; /* 明るいアクセントピンク */
+            --white: #fff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: var(--text-color);
+            line-height: 1.8;
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--bg-color);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        header h1 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2.8em;
+            color: var(--primary-color);
+            margin: 0 0 15px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(217, 166, 160, 0.4);
+            font-size: 1.1em;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(217, 166, 160, 0.5);
+        }
+
+        section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        section:nth-of-type(even) {
+            background-color: var(--white);
+        }
+
+        h2 {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        .section-description {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .template-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .template-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .template-card-content {
+            padding: 25px;
+        }
+
+        .template-card h3 {
+            font-family: 'Shippori Mincho', serif;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .card-photo {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .template-card:hover .card-photo img {
+            transform: scale(1.05);
+        }
+
+        .flow-list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 40px auto 0;
+            text-align: left;
+        }
+
+        .flow-list li {
+            background: var(--white);
+            padding: 20px 25px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .flow-list li::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1em;
+        }
+
+        .pricing-table {
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .pricing-table th, .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .pricing-table th {
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>てまひま</h1>
+            <p>心を込めて、一文字ずつ丁寧に。あなたの想いを、温かい手書きの絵葉書で伝えます。</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHWQALYZI9jtHv9LpaksLjHSI15sZGXgJsf4Hw1AVITD9bPw/viewform?usp=dialog" class="btn">お申し込みはこちら</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2>私たちのサービスについて</h2>
+            <p class="section-description">
+                パソコンやスマートフォンの文字が当たり前になった今だからこそ、手書きの文字には特別な温かみが宿ります。
+                お世話になった方へのお礼状、大切な人へのメッセージ、特別な日のお祝いの絵葉書など、様々なシーンであなたの気持ちを形にするお手伝いをいたします。
+            </p>
+        </div>
+    </section>
+
+    <section id="templates">
+        <div class="container">
+            <h2>8月の選べる手書きテンプレート</h2>
+            <p class="section-description">お好みのデザインをお選びください。各テンプレートには、お好きな写真を1枚添えることができます。</p>
+            <div class="template-gallery">
+                <!-- Template 1: Simple -->
+                <div class="template-card">
+                    <div class="card-photo">
+                        <!-- 下の src に写真のURLを入れてください -->
+                        <img src="images/IMG_4731.jpeg" alt="朝顔の絵葉書">
+                    </div>
+                    <div class="template-card-content">
+                        <h3>朝顔</h3>
+                        <p>夏の朝に咲く朝顔をあしらった、爽やかなデザインです。残暑見舞いなどにいかがでしょうか。</p>
+                    </div>
+                </div>
+
+                <!-- Template 2: Elegant -->
+                <div class="template-card">
+                    <div class="card-photo">
+                        <!-- 下の src に写真のURLを入れてください -->
+                        <img src="images/IMG_4733.jpeg" alt="スイカの絵葉書">
+                    </div>
+                    <div class="template-card-content">
+                        <h3>スイカ</h3>
+                        <p>夏らしいスイカをあしらった、爽やかなデザインです。暑中見舞いなどにいかがでしょうか。</p>
+                    </div>
+                </div>
+
+                <!-- Template 3: Casual -->
+                <div class="template-card">
+                    <div class="card-photo">
+                        <!-- 下の src に写真のURLを入れてください -->
+                        <img src="images/IMG_4732.jpeg" alt="金魚の絵葉書">
+                    </div>
+                    <div class="template-card-content">
+                        <h3>金魚</h3>
+                        <p>水の中を優雅に泳ぐ金魚のイラストです。夏の涼やかなご挨拶にどうぞ。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="flow">
+        <div class="container">
+            <h2>ご利用の流れ</h2>
+            <ol class="flow-list">
+                <li data-step="1"><strong>お申し込み</strong><br>ページ下部のお申し込みボタンから、Googleフォームにご記入ください。</li>
+                <li data-step="2"><strong>内容確認・お見積もり</strong><br>担当者より内容確認のメールをお送りします。</li>
+                <li data-step="3"><strong>代筆・作成</strong><br>心を込めて、一文字ずつ丁寧に代筆いたします。</li>
+                <li data-step="4"><strong>発送・納品</strong><br>完成した手紙をご指定の住所へお送りします。</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <h2>料金案内</h2>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>内容</th>
+                        <th>料金（税込）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>絵葉書1枚</td>
+                        <td>1,000円</td>
+                    </tr>
+                    <tr>
+                        <td>文字入れ（追加）</td>
+                        <td>500円</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>住所の記入</td>
+                        <td>500円</td>
+                    </tr>
+                    <tr>
+                        <td>送料</td>
+                        <td>実費</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="section-description">お支払い方法は銀行振込のみとなります。後日PayPayも導入予定です。</p>
+        </div>
+    </section>
+
+    <section id="order-form">
+        <div class="container">
+            <h2>お申し込み</h2>
+            <p class="section-description">以下のボタンからお申し込みフォームへお進みください。<br>ご依頼内容や手紙に記載する文章などが可能です。</p>
+            <!-- ↓↓ 下の href に、ご自身のGoogleフォームのURLを入れてください ↓↓ -->
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHWQALYZI9jtHv9LpaksLjHSI15sZGXgJsf4Hw1AVITD9bPw/viewform?usp=dialog" class="btn" target="_blank">Googleフォームでお申し込み</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 てまひま All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
